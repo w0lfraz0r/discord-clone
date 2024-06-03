@@ -72,7 +72,7 @@ const InitialModal = () => {
         className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 p-6">
           <DialogTitle className="text-2xl text-center">
-            Let's get you set up with your first server.
+            Let&apos;s get you set up with your first server.
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Give your server a personality with a name and an image, You can always change it later.
