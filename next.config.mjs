@@ -8,10 +8,6 @@ const nextConfig = {
         ignoreBuildErrors: true,
     },
 
-    eslint: {
-        ignoreBuildErrors: true,
-    },
-
     swcMinify: true,
 
 };
