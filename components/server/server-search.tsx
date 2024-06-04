@@ -3,11 +3,11 @@
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { ChannelType } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { ServerHeader } from "./server-header";
 import { ScrollArea } from "../ui/scroll-area";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     CommandDialog,
     CommandEmpty,
@@ -33,6 +33,32 @@ export const ServerSearch = ({
     data
 }: ServerSearchProps) => {
     const [open, setOpen] = useState(false);
+    const router = useRouter();
+    const params = useParams();
+
+    useEffect(() => {
+        const down = (e: KeyboardEvent) => {
+            if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                setOpen(true);
+            }
+        }
+        document.addEventListener("keydown", down);
+        return () => {
+            document.removeEventListener("keydown", down);
+        }
+    }, []);
+
+    const onClick = ({ id, type }: { id: string, type: "channel" | "member" }) => {
+        setOpen(false);
+
+        if (type === "channel") {
+            return router.push(`/server/${params.serverId}/channel/${id}`)
+        }
+        if (type === "member") {
+            return router.push(`/server/${params.serverId}/conversation/${id}`);
+        }
+    }
 
     return (
         <>
@@ -61,7 +87,7 @@ export const ServerSearch = ({
                             <CommandGroup key={label} heading={label}>
                                 {data.map(({ id, icon, name }) => {
                                     return (
-                                        <CommandItem key={id} >
+                                        <CommandItem key={id} onSelect={() => { onClick({ id, type }) }} >
                                             {icon}
                                             <span className="ml-2">{name}</span>
                                         </CommandItem>
