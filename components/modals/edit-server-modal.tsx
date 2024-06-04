@@ -45,8 +45,8 @@ const EditServerModal = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      imageUrl: "",
+      name: server?.name || "",
+      imageUrl: server?.imageUrl || "",
     }
   });
 
