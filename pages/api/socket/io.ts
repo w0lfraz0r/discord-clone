@@ -19,5 +19,6 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
             path,
             addTrailingSlash: false,
         });
+        res.socket.server.io = io;
     }
 }
