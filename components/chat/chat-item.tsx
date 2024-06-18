@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useModal } from "@/hooks/use-modal-store";
 
 const roleIconMap = {
     "GUEST": null,
@@ -64,6 +65,7 @@ const ChatItem = ({
             content: content,
         }
     });
+    const { onOpen } = useModal();
 
     useEffect(() => {
         const handleKeyDown = (event: any) => {
@@ -86,7 +88,6 @@ const ChatItem = ({
     }, [content]);
 
     const [isEditing, setIsEditing] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
 
     const fileType = fileUrl?.split(".").pop();
     const isAdmin = currentMember.role === MemberRole.ADMIN;
@@ -226,6 +227,10 @@ const ChatItem = ({
                     )}
                     <ActionTooltip label="Delete">
                         <Trash
+                            onClick={() => onOpen("deleteMessage", {
+                                apiUrl: `${socketUrl}/${id}`,
+                                query: socketQuery,
+                            })}
                             className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                         />
                     </ActionTooltip>

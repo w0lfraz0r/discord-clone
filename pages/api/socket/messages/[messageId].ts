@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
                 error: "Message ID missing"
             });
         }
-        if (!content) {
+        if (!content && req.method !== "DELETE") {
             return res.status(400).json({
                 error: "Content missing"
             });
@@ -122,7 +122,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
                 data: {
                     deleted: true,
                     fileUrl: null,
-                    content: "This message has been delted.",
+                    content: "This message has been deleted.",
                 },
                 include: {
                     member: {
