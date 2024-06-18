@@ -1,8 +1,7 @@
 import { NextApiRequest } from "next";
-import { NextApiResponseServerIo } from "../../../types";
-import { error } from "console";
-import { currentProfilePages } from "../../../lib/current-profile-pages";
-import { db } from "../../../lib/db";
+import { NextApiResponseServerIo } from "../../../../types";
+import { currentProfilePages } from "../../../../lib/current-profile-pages";
+import { db } from "../../../../lib/db";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponseServerIo) {
     if (req.method !== "POST") {
